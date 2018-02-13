@@ -82,4 +82,3 @@ RUN git clone https://github.com/hyperledger/iroha.git /tmp/iroha; \
 RUN pip install iroha
 
 USER root
-CMD ["/bin/bash"]
