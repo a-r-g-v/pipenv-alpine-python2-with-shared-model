@@ -76,9 +76,9 @@ RUN git clone https://github.com/gabime/spdlog /tmp/spdlog; \
 # install shared_model of iroha
 RUN git clone https://github.com/hyperledger/iroha.git /tmp/iroha; \
     (cd /tmp/iroha ; git checkout develop); \
-    (cd /tmp/iroha/schema ; protoc -I=./ --python_out=./ ./ ; mv *_pb*.py /usr/local/lib/python2.7); \
+    (cd /tmp/iroha/schema ; python -m grpc_tools.protoc -I=./ --python_out=./ --grpc_python_out=./ ./*.proto ; mv *_pb*.py /usr/local/lib/python2.7); \
     rm -rf /tmp/iroha
-    
+
 RUN pip install iroha
 
 USER root
