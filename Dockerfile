@@ -1,4 +1,4 @@
-FROM argvc/pipenv-alpine-python2
+FROM ktr0731/pipenv-alpine-python2-with-nodejs
 
 USER root
 RUN apk --no-cache add cmake bash automake autoconf pcre-dev bison
