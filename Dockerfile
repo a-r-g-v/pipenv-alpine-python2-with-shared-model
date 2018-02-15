@@ -1,7 +1,7 @@
 FROM ktr0731/pipenv-alpine-python2-with-nodejs
 
 USER root
-RUN apk --no-cache add cmake bash automake autoconf pcre-dev bison
+RUN apk --no-cache add cmake bash automake autoconf pcre-dev bison zlib-dev
 
 # number of concurrent threads during build
 # usage: docker build --build-arg PARALLELISM=8 -t name/name .
