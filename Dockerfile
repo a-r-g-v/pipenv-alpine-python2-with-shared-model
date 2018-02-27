@@ -73,10 +73,17 @@ RUN git clone https://github.com/gabime/spdlog /tmp/spdlog; \
     cmake --build /tmp/spdlog/build --target install; \
     rm -rf /tmp/spdlog
 
+RUN pip2 install grpcio-tools
+
 # install shared_model of iroha
-RUN git clone https://github.com/hyperledger/iroha.git /tmp/iroha; \
-    (cd /tmp/iroha ; git checkout develop); \
-    (cd /tmp/iroha/schema ; python -m grpc_tools.protoc -I=./ --python_out=./ --grpc_python_out=./ ./*.proto ; mv *_pb*.py /usr/local/lib/python2.7); \
+RUN git clone https://github.com/hyperledger/iroha.git /tmp/iroha -b v1.0_alpha ; \
+    (cd /tmp/iroha ; git checkout v1.0_alpha); \
+    (cd /tmp/iroha/example/python; ./prepare.sh; \
+    mkdir /root/iroha; \
+    cp /tmp/iroha/example/python/build/shared_model/bindings/iroha.py /root/iroha/.; \
+    cp /tmp/iroha/example/python/build/shared_model/bindings/_iroha.so /root/iroha/.; \
+    rm /tmp/iroha/example/python/tx-example.py; \
+    cp /tmp/iroha/example/python/*.py /root/iroha/.);\
     rm -rf /tmp/iroha
 
 USER root
